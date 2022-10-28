@@ -33,13 +33,18 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public Menu menuXID(int idMenu) {
+        return menuDao.findById(idMenu).get();
+    }
+
+    @Override
     public Menu actualizarMenu(Menu menu) {
-        return null;
+        return menuDao.save(menu);
     }
 
     @Override
     public void eliminarMenu(String idMenu) {
-
+        menuDao.deleteById(Integer.parseInt(idMenu));
     }
 
     @Override
@@ -52,5 +57,10 @@ public class MenuServiceImpl implements MenuService {
         }
 
         return listaProductos;
+    }
+
+    @Override
+    public List<Producto> listarProductos() {
+        return new ProductosMock().listaProductos;
     }
 }

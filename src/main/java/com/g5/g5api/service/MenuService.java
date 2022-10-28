@@ -10,8 +10,11 @@ public interface MenuService {
     public List<Menu> listarMenus();
     public Menu guardarMenu(Menu menu);
     public Menu menuXFecha(String fecha);
+    public Menu menuXID(int idMenu);
     public Menu actualizarMenu(Menu menu);
     public void eliminarMenu(String idMenu);
 
-    List<Producto> listarProductosMenu(String fecha);
+    public List<Producto> listarProductosMenu(String fecha);
+
+    public List<Producto> listarProductos();
 }

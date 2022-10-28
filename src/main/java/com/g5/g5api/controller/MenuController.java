@@ -30,6 +30,28 @@ public class MenuController {
         return ResponseEntity.ok(menuService.listarProductosMenu(fecha));
     }
 
+    @GetMapping("/productos")
+    public ResponseEntity<List<Producto>> listarProductos() {
+        return ResponseEntity.ok(menuService.listarProductos());
+    }
+
+    @PutMapping("/menu")
+    public ResponseEntity<Menu> actualizarMenu(@RequestBody Menu menu) {
+        return ResponseEntity.ok(menuService.actualizarMenu(menu));
+    }
+
+    @DeleteMapping("/menu")
+    public ResponseEntity<String> eliminarMenu(@RequestParam String idMenu) {
+        menuService.eliminarMenu(idMenu);
+        return ResponseEntity.ok("Menu eliminado");
+    }
+
+    @GetMapping("/menu/{idMenu}")
+    public ResponseEntity<Menu> menuXID(@PathVariable int idMenu) {
+        return ResponseEntity.ok(menuService.menuXID(idMenu));
+    }
+
+
 
 
 }
