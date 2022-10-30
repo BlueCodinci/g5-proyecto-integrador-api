@@ -29,7 +29,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu menuXFecha(String fecha) {
-        return menuDao.findByFecha(fecha);
+        return menuDao.findByFecha(fecha).get(menuDao.findByFecha(fecha).size() - 1);
     }
 
     @Override
