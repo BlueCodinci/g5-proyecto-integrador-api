@@ -24,8 +24,8 @@ public class PedidoController {
         return pedidoService.guardarPedido(pedido);
     }
 
-    @GetMapping("/pedido/{id}")
-    public Pedido pedidoXID(@PathVariable int idPedido){
+    @GetMapping("/pedido")
+    public Pedido pedidoXID(@RequestParam int idPedido){
         return pedidoService.pedidoXID(idPedido);
     }
 
@@ -34,13 +34,13 @@ public class PedidoController {
         return pedidoService.actualizarPedido(pedido);
     }
 
-    @DeleteMapping("/pedido/{id}")
-    public void eliminarPedido(@PathVariable int idPedido){
+    @DeleteMapping("/pedido")
+    public void eliminarPedido(@RequestParam int idPedido){
         pedidoService.eliminarPedido(idPedido);
     }
 
-    @GetMapping("/pedido/{id}/productos")
-    public List<Producto> listarProductosPedido(@PathVariable("id") int idPedido){
+    @GetMapping("/pedido/productos")
+    public List<Producto> listarProductosPedido(@RequestParam int idPedido){
         return pedidoService.listarProductosPedido(idPedido);
     }
 
