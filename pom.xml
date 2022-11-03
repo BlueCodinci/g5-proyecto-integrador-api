@@ -14,8 +14,7 @@
     <name>g5-api</name>
     <description>g5-api</description>
     <properties>
-        <java.version>11</java.version>
-        <java.release>11</java.release>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
