@@ -1,3 +1,4 @@
+/*
 package com.g5.g5api.config;
 
 import org.springframework.context.annotation.Bean;
@@ -37,4 +38,4 @@ public class SwaggerConfig {
         );
     }
 
-}
+}*/
