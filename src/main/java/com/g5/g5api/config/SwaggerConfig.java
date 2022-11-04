@@ -1,4 +1,3 @@
-/*
 package com.g5.g5api.config;
 
 import org.springframework.context.annotation.Bean;
@@ -14,15 +13,16 @@ import java.util.Collections;
 
 @Configuration
 public class SwaggerConfig {
-
+    // Aplication / Json
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiDetails())
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.g5.g5api"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .produces(Collections.singleton("application/json"));
     }
 
     private ApiInfo apiDetails() {
@@ -38,4 +38,4 @@ public class SwaggerConfig {
         );
     }
 
-}*/
+}
