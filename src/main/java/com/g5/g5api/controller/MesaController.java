@@ -45,4 +45,15 @@ public class MesaController {
         return ResponseEntity.ok(mesaService.listarMesas());
     }
 
+    @GetMapping("/mesa/watson/{idMesa}")
+    public String mesaWatson(@PathVariable String idMesa) {
+        Mesa mesa = mesaService.buscarMesa(idMesa);
+        if (mesa == null) {
+            return "-1";
+        }
+
+        return mesa.getIdMesa();
+    }
+
+
 }

@@ -1,13 +1,14 @@
 package com.g5.g5api.controller;
 
-import com.g5.g5api.models.DetallePedido;
-import com.g5.g5api.models.Pedido;
-import com.g5.g5api.models.Producto;
+import com.g5.g5api.models.*;
 import com.g5.g5api.service.PedidoService;
+import com.g5.g5api.service.ProductoService;
+import com.g5.g5api.service.ProductoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,9 @@ public class PedidoController {
 
     @Autowired
     PedidoService pedidoService;
+
+    @Autowired
+    ProductoService productoService;
 
     @GetMapping("/pedidos")
     public List<Pedido> listarPedidos(){
@@ -50,6 +54,36 @@ public class PedidoController {
     @PostMapping("/pedido/detallepedido")
     public ResponseEntity<List<DetallePedido>> insertarDetallePedido(@RequestBody List<DetallePedido> listaDetallePedido){
         return ResponseEntity.ok(pedidoService.insertarDetallePedido(listaDetallePedido));
+    }
+
+    @PostMapping("/pedido/watson")
+    public Pedido insertarWatson(@RequestBody PedidoWatson pedido){
+        ArrayList<Integer> listaProductos = new ArrayList<>();
+        // el texto contiene numeros separados por comas que representan los id de los productos
+        // se debe crear un pedido y agregarle los productos
+        // Separar los numeros y crear un array de enteros
+        String[] array = pedido.getProductos().split(",");
+        for(String s : array){
+            listaProductos.add(Integer.parseInt(s));
+        }
+        // Crear el pedido
+        Pedido pedidoNuevo = new Pedido();
+        pedidoNuevo.setIdUsuario(pedido.getIdUsario());
+
+        pedidoNuevo = pedidoService.guardarPedido(pedidoNuevo);
+        // Crear los detalles del pedido
+        ArrayList<DetallePedido> listaDetallePedido = new ArrayList<>();
+        for(Integer i : listaProductos){
+            DetallePedido detallePedido = new DetallePedido();
+            detallePedido.setId(new DetallePedidoPK(pedidoNuevo.getIdPedido(), i));
+            detallePedido.setCantidad(1);
+            detallePedido.setPrecio(productoService.buscarProducto(Long.valueOf(i)).getPrecio());
+            listaDetallePedido.add(detallePedido);
+        }
+
+        pedidoService.insertarDetallePedido(listaDetallePedido);
+
+        return pedidoNuevo;
     }
 
 }

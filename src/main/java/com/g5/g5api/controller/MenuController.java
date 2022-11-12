@@ -52,7 +52,18 @@ public class MenuController {
         return ResponseEntity.ok(menuService.menuToday());
     }
 
+    @GetMapping("/menu/productos/watson")
+    public String listarProductosMenuDelDiaWatson() {
+        List<Producto> productos = menuService.listarProductosMenu();
+        String productosWatson = "";
+        for (Producto producto : productos) {
+            productosWatson += "(" + producto.getIdProducto() + ") "+ producto.getNombre() + ", ";
+        }
+        return productosWatson;
+    }
 
-
-
+    @GetMapping("/menu/productos/prueba")
+    public List<Producto> listarProductosMenuPrueba() {
+        return menuService.listarProductosMenu();
+    }
 }
