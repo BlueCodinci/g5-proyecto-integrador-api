@@ -5,20 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Map;
 
+@Entity
+@Table(name = "roles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "pedidos")
-public class Pedido {
+public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPedido;
-    private int idMenu;
-    private int idUsuario;
-    private String fecha;
-    private int estado;
+    private Long idRol;
+    private String nombre;
+    private Long idUsuario;
+
 }

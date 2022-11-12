@@ -1,5 +1,6 @@
 package com.g5.g5api.service;
 
+import com.g5.g5api.models.DetallePedido;
 import com.g5.g5api.models.Pedido;
 import com.g5.g5api.models.Producto;
 
@@ -11,6 +12,7 @@ public interface PedidoService {
     public Pedido pedidoXID(int idPedido);
     public Pedido actualizarPedido(Pedido pedido);
     public void eliminarPedido(int idPedido);
-    public List<Producto> listarProductosPedido(int idPedido);
+    public List<DetallePedido> listarDetallePedido(int idPedido);
+    public List<DetallePedido> insertarDetallePedido(List<DetallePedido> listaDetallePedido);
 
 }

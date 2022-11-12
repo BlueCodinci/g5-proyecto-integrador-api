@@ -13,7 +13,7 @@ import java.util.Collections;
 
 @Configuration
 public class SwaggerConfig {
-    // Aplication / Json
+    // responses content aplication/json
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -21,8 +21,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.g5.g5api"))
                 .paths(PathSelectors.any())
-                .build()
-                .produces(Collections.singleton("application/json"));
+                .build();
     }
 
     private ApiInfo apiDetails() {

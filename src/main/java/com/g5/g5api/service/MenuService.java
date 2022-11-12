@@ -14,7 +14,9 @@ public interface MenuService {
     public Menu actualizarMenu(Menu menu);
     public void eliminarMenu(String idMenu);
 
-    public List<Producto> listarProductosMenu(String fecha);
+    public List<Producto> listarProductosMenu();
+
+    public Menu menuToday();
 
     public List<Producto> listarProductos();
 }

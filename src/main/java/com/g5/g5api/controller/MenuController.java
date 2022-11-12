@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 public class MenuController {
 
     @Autowired
@@ -26,13 +27,8 @@ public class MenuController {
     }
 
     @GetMapping("/menu/productos")
-    public ResponseEntity<List<Producto>> listarProductosMenu(@RequestParam String fecha) {
-        return ResponseEntity.ok(menuService.listarProductosMenu(fecha));
-    }
-
-    @GetMapping("/productos")
-    public ResponseEntity<List<Producto>> listarProductos() {
-        return ResponseEntity.ok(menuService.listarProductos());
+    public ResponseEntity<List<Producto>> listarProductosMenu() {
+        return ResponseEntity.ok(menuService.listarProductosMenu());
     }
 
     @PutMapping("/menu")
@@ -40,8 +36,8 @@ public class MenuController {
         return ResponseEntity.ok(menuService.actualizarMenu(menu));
     }
 
-    @DeleteMapping("/menu")
-    public ResponseEntity<String> eliminarMenu(@RequestParam String idMenu) {
+    @DeleteMapping("/menu/{idMenu}")
+    public ResponseEntity<String> eliminarMenu(@PathVariable String idMenu) {
         menuService.eliminarMenu(idMenu);
         return ResponseEntity.ok("Menu eliminado");
     }
@@ -49,6 +45,11 @@ public class MenuController {
     @GetMapping("/menu/{idMenu}")
     public ResponseEntity<Menu> menuXID(@PathVariable int idMenu) {
         return ResponseEntity.ok(menuService.menuXID(idMenu));
+    }
+
+    @GetMapping("/menu/menutoday")
+    public ResponseEntity<Menu> menuToday() {
+        return ResponseEntity.ok(menuService.menuToday());
     }
 
 

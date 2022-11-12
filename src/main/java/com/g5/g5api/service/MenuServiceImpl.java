@@ -7,8 +7,9 @@ import com.g5.g5api.models.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,7 +30,14 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu menuXFecha(String fecha) {
-        return menuDao.findByFecha(fecha).get(menuDao.findByFecha(fecha).size() - 1);
+
+        List<Menu> menus = menuDao.findByFecha(fecha);
+
+        if(menus.size() > 0) {
+            return menus.get(menuDao.findByFecha(fecha).size() - 1);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -48,15 +56,31 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Producto> listarProductosMenu(String fecha) {
+    public List<Producto> listarProductosMenu() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        Menu menu = menuXFecha(fecha);
 
-        for (Integer p : menu.getIdProductos()) {
-            listaProductos.add(new ProductosMock().listaProductos.get(p));
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = DateFor.format(date);
+
+        Menu menu = menuXFecha(stringDate);
+
+        if (menu != null) {
+            for (Integer p : menu.getIdProductos()) {
+                listaProductos.add(new ProductosMock().listaProductos.get(p));
+            }
         }
 
         return listaProductos;
+    }
+
+    @Override
+    public Menu menuToday() {
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = DateFor.format(date);
+
+        return menuXFecha(stringDate);
     }
 
     @Override
