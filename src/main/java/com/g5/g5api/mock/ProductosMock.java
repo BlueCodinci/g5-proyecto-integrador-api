@@ -8,19 +8,19 @@ import java.util.List;
 public class ProductosMock {
     public List<Producto> listaProductos = new ArrayList<Producto>();
 
-    Producto producto1 = new Producto(0, "Coca-Cola", "Bebida gaseosa", 10.0, 10);
-    Producto producto2 = new Producto(1, "Pepsi", "Bebida gaseosa", 10.0, 10);
-    Producto producto3 = new Producto(2, "Lomo Saltado", "Plato de carne", 20.0, 10);
-    Producto producto4 = new Producto(3, "Arroz con Pollo", "Plato de carne", 20.0, 10);
-    Producto producto5 = new Producto(4, "Ceviche", "Plato de mariscos", 20.0, 10);
-    Producto producto6 = new Producto(5, "Pescado Frito", "Plato de mariscos", 20.0, 10);
-    Producto producto7 = new Producto(6, "Papa a la Huancaina", "Plato de vegetales", 20.0, 10);
+    Producto producto1 = new Producto(0, "Lomo Saltado", "Trozos de lomo de carne, tomate y cebolla, servidos junto a crocantes papas fritas y graneado arroz.", 28.0, 15);
+    Producto producto2 = new Producto(1, "Arroz con Pollo", "Arroz verde al culantro, cocinado con presas de pollo y verduras.", 18.0, 10);
+    Producto producto3 = new Producto(2, "Pescado Frito", "Plato de carne", 20.0, 10);
+    Producto producto4 = new Producto(3, "Papa a la Huancaina", "Plato de carne", 20.0, 10);
+    Producto producto5 = new Producto(4, "Arroz Chaufa", "Plato de mariscos", 20.0, 10);
+    Producto producto6 = new Producto(5, "Asado de Carne", "Plato de mariscos", 20.0, 10);
+    Producto producto7 = new Producto(6, "Pollo al horno", "Plato de vegetales", 20.0, 10);
     Producto producto8 = new Producto(7, "Arroz Chaufa", "Plato de vegetales", 20.0, 10);
-    Producto producto9 = new Producto(8, "Papa Rellena", "Plato de vegetales", 20.0, 10);
-    Producto producto10 = new Producto(9, "Causa", "Plato de vegetales", 20.0, 10);
-    Producto producto11 = new Producto(10, "Pisco Sour", "Bebida alcohólica", 20.0, 10);
-    Producto producto12 = new Producto(11, "Mojito", "Bebida alcohólica", 20.0, 10);
-    Producto producto13 = new Producto(12, "Cerveza", "Bebida alcohólica", 20.0, 10);
+    Producto producto9 = new Producto(8, "Causa", "Plato de vegetales", 20.0, 10);
+    Producto producto10 = new Producto(9, "Chuleta de Cerdo", "Plato de vegetales", 20.0, 10);
+    Producto producto11 = new Producto(10, "Tallarin Saltado de Carne", "Bebida alcohólica", 20.0, 10);
+    Producto producto12 = new Producto(11, "Inka Cola 500 ML", "Bebida alcohólica", 20.0, 10);
+    Producto producto13 = new Producto(12, "Coca-Cola 500 ML", "Bebida alcohólica", 20.0, 10);
 
     public ProductosMock() {
         listaProductos.add(producto1);

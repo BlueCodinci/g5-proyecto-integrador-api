@@ -25,6 +25,19 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu guardarMenu(Menu menu) {
+
+        List<Producto> productos = new ProductosMock().listaProductos;
+
+        if(!menu.getFecha().matches("\\d{4}-\\d{2}-\\d{2}")) {
+            return null;
+        }
+
+        for (int idProducto : menu.getIdProductos()) {
+            if(!productos.stream().anyMatch(producto -> producto.getIdProducto() == idProducto)) {
+                return null;
+            }
+        }
+
         return menuDao.save(menu);
     }
 
@@ -47,12 +60,33 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu actualizarMenu(Menu menu) {
+        List<Producto> productos = new ProductosMock().listaProductos;
+
+        if( !menuDao.findById(menu.getIdMenu()).isPresent()) {
+            return null;
+        }
+
+        if(!menu.getFecha().matches("\\d{4}-\\d{2}-\\d{2}")) {
+            return null;
+        }
+
+        for (int idProducto : menu.getIdProductos()) {
+            if(!productos.stream().anyMatch(producto -> producto.getIdProducto() == idProducto)) {
+                return null;
+            }
+        }
+
         return menuDao.save(menu);
     }
 
     @Override
-    public void eliminarMenu(String idMenu) {
+    public boolean eliminarMenu(String idMenu) {
+        if( !menuDao.findById(Integer.valueOf(idMenu)).isPresent()) {
+            return false;
+        }
+
         menuDao.deleteById(Integer.parseInt(idMenu));
+        return true;
     }
 
     @Override

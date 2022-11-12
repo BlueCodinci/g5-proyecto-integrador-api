@@ -19,6 +19,7 @@ public class Pedido {
     private int idPedido;
     private int idMenu;
     private int idUsuario;
+    private int numeroMesa;
     private String fecha;
     private int estado;
 }

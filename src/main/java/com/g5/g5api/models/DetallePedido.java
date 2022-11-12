@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class DetallePedido {
     @EmbeddedId
     private DetallePedidoPK id;
-    public int cantidad;
-    public double precio;
+    private int cantidad;
+    private double precio;
+    private int estado;
 }

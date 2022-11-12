@@ -3,7 +3,6 @@ package com.g5.g5api.controller;
 import com.g5.g5api.models.*;
 import com.g5.g5api.service.PedidoService;
 import com.g5.g5api.service.ProductoService;
-import com.g5.g5api.service.ProductoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class PedidoController {
 
     @Autowired
@@ -22,48 +21,40 @@ public class PedidoController {
     ProductoService productoService;
 
     @GetMapping("/pedidos")
-    public List<Pedido> listarPedidos(){
+    public List<Pedido> listarPedidos() {
         return pedidoService.listarPedidos();
     }
 
     @PostMapping("/pedido")
-    public Pedido guardarPedido(@RequestBody Pedido  pedido){
+    public Pedido guardarPedido(@RequestBody Pedido pedido) {
         return pedidoService.guardarPedido(pedido);
     }
 
     @GetMapping("/pedido/{idPedido}")
-    public Pedido pedidoXID(@PathVariable int idPedido){
+    public Pedido pedidoXID(@PathVariable int idPedido) {
         return pedidoService.pedidoXID(idPedido);
     }
 
     @PutMapping("/pedido")
-    public Pedido actualizarPedido(@RequestBody Pedido pedido){
+    public Pedido actualizarPedido(@RequestBody Pedido pedido) {
         return pedidoService.actualizarPedido(pedido);
     }
 
     @DeleteMapping("/pedido/{idPedido}")
-    public void eliminarPedido(@PathVariable int idPedido){
+    public void eliminarPedido(@PathVariable int idPedido) {
         pedidoService.eliminarPedido(idPedido);
     }
 
-    @GetMapping("/pedido/productos")
-    public List<DetallePedido> listarProductosPedido(@RequestParam int idPedido){
-        return pedidoService.listarDetallePedido(idPedido);
-    }
 
-    @PostMapping("/pedido/detallepedido")
-    public ResponseEntity<List<DetallePedido>> insertarDetallePedido(@RequestBody List<DetallePedido> listaDetallePedido){
-        return ResponseEntity.ok(pedidoService.insertarDetallePedido(listaDetallePedido));
-    }
 
     @PostMapping("/pedido/watson")
-    public Pedido insertarWatson(@RequestBody PedidoWatson pedido){
+    public Pedido insertarWatson(@RequestBody PedidoWatson pedido) {
         ArrayList<Integer> listaProductos = new ArrayList<>();
         // el texto contiene numeros separados por comas que representan los id de los productos
         // se debe crear un pedido y agregarle los productos
         // Separar los numeros y crear un array de enteros
         String[] array = pedido.getProductos().split(",");
-        for(String s : array){
+        for (String s : array) {
             listaProductos.add(Integer.parseInt(s));
         }
         // Crear el pedido
@@ -73,7 +64,7 @@ public class PedidoController {
         pedidoNuevo = pedidoService.guardarPedido(pedidoNuevo);
         // Crear los detalles del pedido
         ArrayList<DetallePedido> listaDetallePedido = new ArrayList<>();
-        for(Integer i : listaProductos){
+        for (Integer i : listaProductos) {
             DetallePedido detallePedido = new DetallePedido();
             detallePedido.setId(new DetallePedidoPK(pedidoNuevo.getIdPedido(), i));
             detallePedido.setCantidad(1);
@@ -84,6 +75,28 @@ public class PedidoController {
         pedidoService.insertarDetallePedido(listaDetallePedido);
 
         return pedidoNuevo;
+    }
+
+    @GetMapping("/pedido/activo/{idUsuario}")
+    public Pedido pedidoActivo(@PathVariable int idUsuario) {
+        return pedidoService.getPedidoActivoUsuario(idUsuario);
+    }
+
+
+
+    @DeleteMapping("/pedido/eliminar/detallepedido/{idPedido}/{idProducto}")
+    public void eliminarDetallePedido(@PathVariable("idPedido") int idPedido, @PathVariable("idProducto") int idProducto) {
+        pedidoService.eliminarDetallePedido(idPedido, idProducto);
+    }
+
+    @PutMapping("/pedido/actualizar/estado/{idPedido}/{estado}")
+    public void actualizarEstadoPedido(@PathVariable("idPedido") int idPedido, @PathVariable("estado") int estado) {
+        pedidoService.actualizarEstadoPedido(idPedido, estado);
+    }
+
+    @GetMapping("/pedidos/usuario/{idUsuario}")
+    public List<Pedido> listarPedidosUsuario(@PathVariable int idUsuario) {
+        return pedidoService.listarPedidosIdUsuario(idUsuario);
     }
 
 }

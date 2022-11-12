@@ -12,7 +12,7 @@ public interface MenuService {
     public Menu menuXFecha(String fecha);
     public Menu menuXID(int idMenu);
     public Menu actualizarMenu(Menu menu);
-    public void eliminarMenu(String idMenu);
+    public boolean eliminarMenu(String idMenu);
 
     public List<Producto> listarProductosMenu();
 

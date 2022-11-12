@@ -24,7 +24,12 @@ public class MenuController {
 
     @PostMapping("/menu")
     public ResponseEntity<Menu> guardarMenu(@RequestBody Menu menu) {
-        return ResponseEntity.ok(menuService.guardarMenu(menu));
+        Menu resultado = menuService.guardarMenu(menu);
+        if(resultado == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(resultado);
+        }
     }
 
     @GetMapping("/menu/productos")
@@ -34,13 +39,22 @@ public class MenuController {
 
     @PutMapping("/menu")
     public ResponseEntity<Menu> actualizarMenu(@RequestBody Menu menu) {
-        return ResponseEntity.ok(menuService.actualizarMenu(menu));
+        Menu resultado = menuService.actualizarMenu(menu);
+        if(resultado == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(resultado);
+        }
     }
 
     @DeleteMapping("/menu/{idMenu}")
     public ResponseEntity<String> eliminarMenu(@PathVariable String idMenu) {
-        menuService.eliminarMenu(idMenu);
-        return ResponseEntity.ok("Menu eliminado");
+        boolean resultado = menuService.eliminarMenu(idMenu);
+        if(resultado) {
+            return ResponseEntity.ok("Menu eliminado");
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/menu/{idMenu}")
