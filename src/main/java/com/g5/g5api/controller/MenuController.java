@@ -1,6 +1,7 @@
 package com.g5.g5api.controller;
 
 import com.g5.g5api.models.Menu;
+import com.g5.g5api.models.PedidoWatson;
 import com.g5.g5api.models.Producto;
 import com.g5.g5api.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,17 +54,15 @@ public class MenuController {
     }
 
     @GetMapping("/menu/productos/watson")
-    public String listarProductosMenuDelDiaWatson() {
+    public PedidoWatson listarProductosMenuDelDiaWatson() {
         List<Producto> productos = menuService.listarProductosMenu();
         String productosWatson = "";
         for (Producto producto : productos) {
             productosWatson += "(" + producto.getIdProducto() + ") "+ producto.getNombre() + ", ";
-        }
-        return productosWatson;
-    }
 
-    @GetMapping("/menu/productos/prueba")
-    public List<Producto> listarProductosMenuPrueba() {
-        return menuService.listarProductosMenu();
+        }
+        PedidoWatson pedidoWatson = new PedidoWatson();
+        pedidoWatson.setProductos(productosWatson);
+        return pedidoWatson;
     }
 }
